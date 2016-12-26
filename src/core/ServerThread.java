@@ -66,7 +66,7 @@ public class ServerThread extends Thread {
 						message = "Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")) + "\n";
 					}
 					else{
-						message = "Aucune musique n'est jouée ! \n";
+						message = "Aucune musique n'est jouï¿½e ! \n";
 					}
 					if (listeAtt!=null){
 						int indexSong = listeAtt.lastIndexOf("\\");
@@ -79,7 +79,7 @@ public class ServerThread extends Thread {
 					out.println(message);
 					break;
 				default:
-					if(receivedData.startsWith("vlalachanson")){ //À compléter ^^
+					if(receivedData.startsWith("vlalachanson")){ //ï¿½ complï¿½ter ^^
 						String com = path+CompleteName.completeName(mapSong,receivedData.substring(12))+".mp3";
     	  				com = com.replaceAll(" ","_");
     	  				message = "";
@@ -207,7 +207,7 @@ public class ServerThread extends Thread {
 			return("Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")));
 		}
 		else{
-			return("Aucune musique n'est jouée !");
+			return("Aucune musique n'est jouÃ©e !");
 		}
 	}
 	

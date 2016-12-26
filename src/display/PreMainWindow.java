@@ -31,12 +31,14 @@ public class PreMainWindow extends MainLabel{
 		apply.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				GestionServer.getWindow().setPeriph(getPeriph());
-				GestionServer.getWindow().next();
+				//if (getPeriph()!=null){ //For windows
+					GestionServer.getWindow().setPeriph(getPeriph());
+					GestionServer.getWindow().next();
+				//} //For windows
 			}
 		});
 		
-		add(new JLabel("Quel périphérique audio souhaitez vous utilisez ?"));
+		add(new JLabel("Quel pÃ©riphÃ©rique audio souhaitez vous utilisez ?"));
 		
 		for (Mixer.Info info : AudioSystem.getMixerInfo()){
 			if (info.getDescription().contains("Playback")){
