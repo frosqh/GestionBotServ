@@ -14,8 +14,8 @@ import state.State;
 public class MainWindow extends JFrame{
 	
 	private State st;
-	private PreMainWindow preWindow;
-	private AdminPanel adminPanel;
+	private MainLabel preWindow;
+	private MainLabel adminPanel;
 	private String periph;
 	
 	
