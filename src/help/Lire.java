@@ -10,11 +10,9 @@ import javazoom.jl.decoder.JavaLayerException;
 public class Lire extends Thread{
 	public String song;
 	public jlp mp;
-	private ServerThread server;
 
-	public Lire(String chanson,ServerThread s){
+	public Lire(String chanson){
 		super();
-		this.server = s;
 		this.mp = null;
 		this.song = chanson;
 		this.start();
@@ -29,7 +27,7 @@ public class Lire extends Thread{
 			ServerThread.lireNext();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			server.setMessageError("PasLaChanson");
+			ServerThread.setMessageError("PasLaChanson");
 			ServerThread.setOk(true);
 			ServerThread.setPlaying(false);
 			e.printStackTrace();

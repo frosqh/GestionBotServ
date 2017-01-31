@@ -18,28 +18,24 @@ public class ServerThread extends Thread {
 	
 	public static int port = 2302;
 	public static boolean isPlaying = false;
-	static int taille = 2048;
-	static byte buffer[] = new byte[taille];
-	static boolean stop_serv = false;
-	public Thread t1;
-	private String messageError = "";
+	private static int taille = 2048;
+	private static byte buffer[] = new byte[taille];
+	private static boolean stop_serv = false;
+	private static String messageError = "";
 	private Socket socket;
 	private boolean stop;
 	private String stringFile;
 	private String path;
-	private HashMap<String, ArrayList<String>> mapSong;
+	private static HashMap<String, ArrayList<String>> mapSong;
 	public static String[] s2;
 	public static String ti;
 	public static String ar;
-	public static InetAddress ip;
-	public static DatagramPacket paquet;
 	static Lire t;
 	private static String listeAtt;
 	private static boolean ok;
 	
 	public ServerThread(Socket socketClient,HashMap<String,ArrayList<String>> mapSong, String path2) {
 		this.socket = socketClient;
-		this.mapSong = mapSong;
 		this.path = path2;
 		System.out.println(mapSong);
 	}
@@ -66,7 +62,7 @@ public class ServerThread extends Thread {
 						message = "Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")) + "\n";
 					}
 					else{
-						message = "Aucune musique n'est jouï¿½e ! \n";
+						message = "Aucune musique n'est jouée ! \n";
 					}
 					if (listeAtt!=null){
 						int indexSong = listeAtt.lastIndexOf("\\");
@@ -85,7 +81,7 @@ public class ServerThread extends Thread {
     	  				message = "";
     	  				if (!isPlaying){
     	  					ok = false;
-    	  					t = new Lire(com,this);
+    	  					t = new Lire(com);
     	  					while(!ok);
     	  					if (!messageError.equals("PasLaChanson")){
         	  					setPlaying(true);
@@ -138,13 +134,14 @@ public class ServerThread extends Thread {
 
 
 
-	private static boolean isPlaying() {
-		// TODO Auto-generated method stub
-		return false;
+	public static boolean isPlaying() {
+		return isPlaying;
 	}
 
 	public static void main(HashMap<String, ArrayList<String>> mapSong2, String path){
 		try{
+			ServerThread.mapSong = mapSong2;
+			System.out.println(mapSong);
 			ServerSocket socketServer = new ServerSocket(port);
 			System.out.println("Lancement du serveur");
 			while(!stop_serv){
@@ -194,20 +191,55 @@ public class ServerThread extends Thread {
 		return messageError;
 	}
 
-	public void setMessageError(String messageError) {
-		this.messageError = messageError;
-	}
-
-	public static void lireNext() {
+	public static void setMessageError(String messageError) {
+		ServerThread.messageError = messageError;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public static void pause(){
+		t.suspend();
+		setPlaying(false);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void lireNext() {
+		if (isPlaying){
+			pause();
+		}
+		if (listeAtt !=null){
+			t = new Lire(listeAtt);
+			sendMessage();
+			listeAtt = null;
+			isPlaying = true;
+		}
+		else{
+			System.out.println("Chanson tirée au hasard :D");
+			Object[] tab = mapSong.values().toArray();
+			int i = (int) Math.round(Math.random()*(tab.length-1));
+			ArrayList<String> l = (ArrayList<String>) tab[i];
+			Object[] tab2 =(l).toArray();
+			i = (int) Math.round(Math.random()*(tab2.length-1));
+			String k = (String) tab2[i];
+			String com = "C:\\Users\\Admin\\Music\\Musique\\"+CompleteName.completeName(mapSong,k)+".mp3";
+			com = com.replaceAll(" ","_");
+			t = new Lire(com);
+			sendMessage();
+			isPlaying = true;
+		}
+	}
+	
+	private static void sendMessage() {
+		int indexSong = t.getSong().lastIndexOf("\\");
+		GestionServer.getWindow().displayMessage(t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
+	}
+
 	public static String whichPlaying(){
 		if (isPlaying()){
 			int indexSong = t.getSong().lastIndexOf("\\");
-			return("Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")));
+			return("Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
 		}
 		else{
-			return("Aucune musique n'est jouÃ©e !");
+			return("Aucune musique n'est jouée !");
 		}
 	}
 	
@@ -222,5 +254,11 @@ public class ServerThread extends Thread {
 	}
 
 	public static void init() {
+	}
+
+	public static void stopIt() {
+		t.stop();
+		System.exit(0);
+		
 	}
 }

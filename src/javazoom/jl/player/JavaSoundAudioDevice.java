@@ -32,6 +32,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 
+import core.GestionServer;
 import javazoom.jl.decoder.Decoder;
 import javazoom.jl.decoder.JavaLayerException;
 
@@ -100,7 +101,7 @@ public class JavaSoundAudioDevice extends AudioDeviceBase
         Throwable t = null;
         try
         {
-        	Mixer m = getByName("Haut-parleurs (Realtek High Definition Audio)");
+        	Mixer m = getByName(GestionServer.getWindow().getPeriph());
 			Line line = m.getLine(getSourceLineInfo());
             if (line instanceof SourceDataLine)
             {

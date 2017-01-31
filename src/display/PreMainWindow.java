@@ -36,7 +36,7 @@ public class PreMainWindow extends MainLabel{
 			}
 		});
 		
-		add(new JLabel("Quel pÃ©riphÃ©rique audio souhaitez vous utilisez ?"));
+		add(new JLabel("Quel périphérique audio souhaitez vous utilisez ?"));
 		
 		for (Mixer.Info info : AudioSystem.getMixerInfo()){
 			if (info.getDescription().contains("Playback")){

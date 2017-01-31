@@ -1,6 +1,8 @@
 package display;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -11,7 +13,7 @@ import javax.swing.JLabel;
 import core.ServerThread;
 
 @SuppressWarnings("serial")
-public class AdminPanel extends MainLabel{
+public class AdminPanel extends MainLabel implements ActionListener{
 	
 	private JLabel encours = new JLabel("");
 	private JLabel listeAtt = new JLabel("");
@@ -30,6 +32,9 @@ public class AdminPanel extends MainLabel{
 		makeTransparent(pausePlay);
 		makeTransparent(next);
 		makeTransparent(stop);
+		pausePlay.addActionListener(this);
+		next.addActionListener(this);
+		stop.addActionListener(this);
 		pausePlay.setSize(50,50);
 		add(encours);
 		add(listeAtt);
@@ -70,6 +75,34 @@ public class AdminPanel extends MainLabel{
 	public void update() {
 		encours.setText(ServerThread.whichPlaying());
 		listeAtt.setText(ServerThread.whichWaiting());
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource()==pausePlay){
+			if (ServerThread.isPlaying()){
+				ServerThread.pause();
+			}
+			else{
+				ServerThread.lireNext();
+				ServerThread.setPlaying(true);
+			}
+		}
+		else{
+			if (e.getSource()==next){
+				if (ServerThread.isPlaying()){
+					ServerThread.lireNext();
+				}
+			}
+			else{
+				if (e.getSource()==stop){
+					ServerThread.stopIt();
+				}
+			}
+		}
+		update();
+		
 	}
 	
 }
