@@ -25,6 +25,7 @@ public class GestionServer {
 		//path = "/home/projecteur/Musique/Divers/Divers";
 		DiskFileExplorer d = new DiskFileExplorer(path ,false);
 		String stringFile = d.list().replaceAll("_", " ");
+		ServerThread.setStringFile(stringFile);
 		mapSong = ListHashMap.ListToHash(ListHashMap.recupList(stringFile));
 		
 	}

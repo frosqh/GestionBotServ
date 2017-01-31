@@ -24,7 +24,7 @@ public class ServerThread extends Thread {
 	private static String messageError = "";
 	private Socket socket;
 	private boolean stop;
-	private String stringFile;
+	private static String stringFile;
 	private String path;
 	private static HashMap<String, ArrayList<String>> mapSong;
 	public static String[] s2;
@@ -52,7 +52,7 @@ public class ServerThread extends Thread {
 				String message;
 				switch(receivedData){
 				case "coucou": //Ok pour envoi liste musique
-					out.println(stringFile);
+					out.println(getStringFile());
 					out.println("\\cfini");
 					break;
 				case "givemeinfo":
@@ -260,5 +260,13 @@ public class ServerThread extends Thread {
 		t.stop();
 		System.exit(0);
 		
+	}
+
+	public String getStringFile() {
+		return stringFile;
+	}
+
+	public static void setStringFile(String stringFile) {
+		ServerThread.stringFile = stringFile;
 	}
 }
