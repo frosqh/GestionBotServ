@@ -202,7 +202,7 @@ public class MainWindow extends JFrame{
 	}
 	
 	public void displayMessage(String msg){
-			tray.getTrayIcons()[0].displayMessage("Musique jouï¿½e", msg, TrayIcon.MessageType.INFO);
+			tray.getTrayIcons()[0].displayMessage("Musique jouée", msg, TrayIcon.MessageType.INFO);
 	}
 	
 }

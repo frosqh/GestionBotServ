@@ -57,25 +57,12 @@ public class ServerThread extends Thread {
 					break;
 				case "givemeinfo":
 					message = "";
-					if (isPlaying()){
-						int indexSong = t.getSong().lastIndexOf("\\");
-						message = "Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")) + "\n";
-					}
-					else{
-						message = "Aucune musique n'est jouï¿½e ! \n";
-					}
-					if (listeAtt!=null){
-						int indexSong = listeAtt.lastIndexOf("\\");
-						message += "Musique dans la liste d'attente : " + listeAtt.substring(indexSong+1,listeAtt.lastIndexOf("."));
-					}
-					else{
-						message += "Aucune musique dans la liste d'attente !";
-					}
+					message = whichPlaying() +"\n"+ whichWaiting();
 					message = message.replaceAll("_"," ");
 					out.println(message);
 					break;
 				default:
-					if(receivedData.startsWith("vlalachanson")){ //ï¿½ complï¿½ter ^^
+					if(receivedData.startsWith("vlalachanson")){
 						String com = path+CompleteName.completeName(mapSong,receivedData.substring(12))+".mp3";
     	  				com = com.replaceAll(" ","_");
     	  				message = "";
@@ -233,7 +220,7 @@ public class ServerThread extends Thread {
 			isPlaying = true;
 		}
 		else{
-			System.out.println("Chanson tirï¿½e au hasard :D");
+			System.out.println("Chanson tirée au hasard :D");
 			Object[] tab = mapSong.values().toArray();
 			int i = (int) Math.round(Math.random()*(tab.length-1));
 			ArrayList<String> l = (ArrayList<String>) tab[i];
@@ -259,7 +246,7 @@ public class ServerThread extends Thread {
 			return("Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
 		}
 		else{
-			return("Aucune musique n'est jouï¿½e !");
+			return("Aucune musique n'est jouée !");
 		}
 	}
 	
