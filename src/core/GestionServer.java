@@ -21,8 +21,8 @@ public class GestionServer {
 	
 	private static void init() {
 		System.setProperty("file.encoding","UTF-32");
-		path = "C:\\Users\\Admin\\Music\\Musique\\";
-		//path = "/home/projecteur/Musique/Divers/Divers";
+		//path = "C:\\Users\\Admin\\Music\\Musique\\";
+		path = "/home/projecteur/Musique/Divers/Divers";
 		DiskFileExplorer d = new DiskFileExplorer(path ,false);
 		String stringFile = d.list().replaceAll("_", " ");
 		ServerThread.setStringFile(stringFile);

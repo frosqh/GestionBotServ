@@ -68,6 +68,7 @@ public class MainWindow extends JFrame{
 		if (!SystemTray.isSupported()){
 			System.out.println("System Tray is not supported");
 		}
+		else{
 		popup = new PopupMenu();
 		BufferedImage a = ImageIO.read(getClass().getResource("/resources/musique.jpg"));
 		Image b = (Image) a;
@@ -142,6 +143,7 @@ public class MainWindow extends JFrame{
 		 } catch (AWTException e) {
 	            System.out.println("TrayIcon could not be added.");
 		 }
+		}
 		
 	}
 
@@ -200,7 +202,7 @@ public class MainWindow extends JFrame{
 	}
 	
 	public void displayMessage(String msg){
-			tray.getTrayIcons()[0].displayMessage("Musique jouée", msg, TrayIcon.MessageType.INFO);
+			tray.getTrayIcons()[0].displayMessage("Musique jouï¿½e", msg, TrayIcon.MessageType.INFO);
 	}
 	
 }
