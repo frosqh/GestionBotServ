@@ -25,7 +25,7 @@ public class ServerThread extends Thread {
 	private Socket socket;
 	private boolean stop;
 	private static String stringFile;
-	private String path;
+	private static String path;
 	private static HashMap<String, ArrayList<String>> mapSong;
 	public static String[] s2;
 	public static String ti;
@@ -36,7 +36,6 @@ public class ServerThread extends Thread {
 	
 	public ServerThread(Socket socketClient,HashMap<String,ArrayList<String>> mapSong, String path2) {
 		this.socket = socketClient;
-		this.path = path2;
 		System.out.println(mapSong);
 	}
 
@@ -145,21 +144,23 @@ public class ServerThread extends Thread {
 		return isPlaying;
 	}
 
-	public static void main(HashMap<String, ArrayList<String>> mapSong2, String path){
+	public static void main(HashMap<String, ArrayList<String>> mapSong2, String path3){
 		try{
+			ServerThread.path = path3;
 			ServerThread.mapSong = mapSong2;
 			System.out.println(mapSong);
 			ServerSocket socketServer = new ServerSocket(port);
 			System.out.println("Lancement du serveur");
 			while(!stop_serv){
 				Socket socketClient = socketServer.accept();
-				ServerThread t = new ServerThread(socketClient, mapSong2, path);
+				ServerThread t = new ServerThread(socketClient, mapSong2, path3);
 				t.start();
 			}
 			socketServer.close();
 		}
 		catch (Exception e){
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 	
@@ -221,13 +222,31 @@ public class ServerThread extends Thread {
 		}
 		else{
 			System.out.println("Chanson tirée au hasard :D");
+			int totalPondere = 0;
+			ArrayList<String> aTraiter = null;
 			Object[] tab = mapSong.values().toArray();
-			int i = (int) Math.round(Math.random()*(tab.length-1));
-			ArrayList<String> l = (ArrayList<String>) tab[i];
-			Object[] tab2 =(l).toArray();
-			i = (int) Math.round(Math.random()*(tab2.length-1));
-			String k = (String) tab2[i];
-			String com = "C:\\Users\\Admin\\Music\\Musique\\"+CompleteName.completeName(mapSong,k)+".mp3";
+			for (Object l : tab){
+				totalPondere += ((ArrayList<String>) l).size();
+			}
+			int i = (int) Math.round(Math.random()*totalPondere);
+			for (Object l : tab){
+				if (i-((ArrayList<String>) l).size() <= 0){
+					aTraiter = (ArrayList<String>) l;
+					break;
+				}
+				else{
+					i -= ((ArrayList<String>) l).size();
+				}
+			}
+			Object[] tab2 =(aTraiter).toArray();
+			String k;
+			if (i < tab2.length) {
+				 k = (String) tab2[i];
+			}
+			else{
+				 k = (String) tab2[0];
+			}
+			String com = path+CompleteName.completeName(mapSong,k)+".mp3";
 			com = com.replaceAll(" ","_");
 			t = new Lire(com);
 			sendMessage();
@@ -275,5 +294,26 @@ public class ServerThread extends Thread {
 
 	public static void setStringFile(String stringFile) {
 		ServerThread.stringFile = stringFile;
+	}
+	
+	public static void play(String song){
+		String com = path+CompleteName.completeName(mapSong,song)+".mp3";
+		com = com.replaceAll(" ","_");
+		System.out.println(com);
+		if (!isPlaying){
+			ok = false;
+			t = new Lire(com);
+			while(!ok);
+				if (!messageError.equals("PasLaChanson")){
+					setPlaying(true);
+				}
+				else{
+				}
+			}
+			else{
+					if (listeAtt == null){
+						listeAtt = com;
+					}
+			}
 	}
 }
