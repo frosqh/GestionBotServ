@@ -259,6 +259,7 @@ public class ServerThread extends Thread {
 	private static void sendMessage() {
 		int indexSong = t.getSong().lastIndexOf("\\");
 		GestionServer.getWindow().displayMessage(t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
+		//GestionServer.getApi().sendSelectSong(t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
 	}
 
 	public static String whichPlaying(){
@@ -304,10 +305,12 @@ public class ServerThread extends Thread {
 		System.out.println(com);
 		if (!isPlaying){
 			ok = false;
+		
 			t = new Lire(com);
 			while(!ok);
-				if (!messageError.equals("PasLaChanson")){
-					setPlaying(true);
+				if (messageError.equals("PasLaChanson")){
+					setPlaying(false);
+					//GestionServer.getApi().sendSelectSong(t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
 				}
 				else{
 				}
@@ -317,5 +320,10 @@ public class ServerThread extends Thread {
 						listeAtt = com;
 					}
 			}
+	}
+
+	public static String songPlaying() {
+		int indexSong = t.getSong().lastIndexOf("\\");
+		return t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " ");
 	}
 }

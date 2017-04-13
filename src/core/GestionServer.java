@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.github.theholywaffle.teamspeak3.TS3Api;
+
 import display.MainWindow;
 import help.DiskFileExplorer;
 import ts3Query.Ts3Query;
@@ -17,6 +19,7 @@ public class GestionServer {
 	private static String path;
 	private static MainWindow window;
 	private static String artistList;
+	private static Ts3Query api;
 	
 	public static void main(String[] arg0) throws IOException {
 		Thread t = new Thread(new Web());
@@ -82,5 +85,22 @@ public class GestionServer {
 			}
 		}
 		return null;
+	}
+
+	public static void setApi(Ts3Query ts3Query) {
+		api = ts3Query;
+		
+	}
+
+	public static Ts3Query getApi() {
+		return api;
+	}
+
+	public static boolean isArtist(String artist) {
+		return mapSong.containsKey(artist);
+	}
+
+	public static String getArtistSong(String artist) {
+		return mapSong.get(artist).toString();
 	}
 }

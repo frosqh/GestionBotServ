@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import core.GestionServer;
 import core.ServerThread;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
@@ -107,6 +108,8 @@ public class jlp implements Runnable
                 System.out.println("On arrive à le lire !");
                 AudioDevice dev = getAudioDevice();
                 Player player = new Player(in, dev);
+                int indexSong = fFilename.lastIndexOf("\\");
+                GestionServer.getApi().sendSelectSong(fFilename.substring(indexSong+1,fFilename.lastIndexOf(".")).replace("_", " "));
                 player.play();
             }
             catch (Exception ex)

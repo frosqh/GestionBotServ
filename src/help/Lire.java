@@ -21,6 +21,7 @@ public class Lire extends Thread{
 	public void run(){
 		this.mp=new jlp();
 	    mp.init(song);
+	    ServerThread.setPlaying(true);
 		try {
 			mp.play();
 			ServerThread.setPlaying(false);
@@ -32,6 +33,7 @@ public class Lire extends Thread{
 			ServerThread.setPlaying(false);
 			e.printStackTrace();
 		} catch (Exception e) {
+			ServerThread.setPlaying(false);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
