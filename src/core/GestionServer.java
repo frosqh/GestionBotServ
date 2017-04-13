@@ -2,10 +2,13 @@ package core;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 import display.MainWindow;
 import help.DiskFileExplorer;
+import ts3Query.Ts3Query;
 import webServer.Web;
 
 public class GestionServer {
@@ -32,8 +35,11 @@ public class GestionServer {
 		ServerThread.setStringFile(stringFile);
 		mapSong = ListHashMap.ListToHash(ListHashMap.recupList(stringFile));
 		artistList = mapSong.keySet().toString();
+		//System.out.println(artistList);
 		artistList = artistList.substring(1,  artistList.length()-2);
-		System.out.println(artistList);
+		
+		//System.out.println(isIn("4 Walls"));
+		Ts3Query.main(null);
 	}
 
 	public static MainWindow getWindow() {
@@ -53,5 +59,28 @@ public class GestionServer {
 		String tmp = mapSong.get(artist).toString();
 		tmp = tmp.substring(2, tmp.length()-1);
 		return(tmp);
+	}
+	
+	public static boolean isIn(String song){
+		song = " "+song;
+		Collection<ArrayList<String>> l = mapSong.values();
+		
+		for (ArrayList<String> l2 : l){
+			if (l2.contains(song)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static String getPath(String song){
+		song = " "+song;
+		Set<String> set = mapSong.keySet();
+		for (String key : set){
+			if (mapSong.get(key).contains(song)){
+				return key+"-"+song;
+			}
+		}
+		return null;
 	}
 }

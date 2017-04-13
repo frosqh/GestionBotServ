@@ -62,6 +62,7 @@ public class ServerThread extends Thread {
 					break;
 				default:
 					if(receivedData.startsWith("vlalachanson")){
+						System.out.println(receivedData);
 						String com = path+CompleteName.completeName(mapSong,receivedData.substring(12))+".mp3";
     	  				com = com.replaceAll(" ","_");
     	  				message = "";
@@ -91,6 +92,7 @@ public class ServerThread extends Thread {
 						if(receivedData.equals("playPause")){
 							if(isPlaying){
 								pause();
+								setPlaying(false);
 							}
 							else{
 								lireNext();
