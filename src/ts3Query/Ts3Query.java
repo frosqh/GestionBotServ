@@ -43,7 +43,7 @@ public class Ts3Query {
 		
 		
 		final TS3Config config = new TS3Config();
-		config.setHost("localhost");
+		config.setHost("harinman.ddns.net");
 		config.setDebugLevel(Level.ALL);
 		
 		query = new TS3Query(config);
@@ -79,6 +79,10 @@ public class Ts3Query {
 				if (e.getTargetMode() == TextMessageTargetMode.CHANNEL && e.getInvokerId() != clientId) {
 					String message = e.getMessage();
 					//System.out.println(message);
+					if (message.equals("bot:hello")){
+						api.sendChannelMessage("PAUL, SALOW");
+					}
+					
 					if (message.startsWith("!")){
 						message = message.substring(1);
 						//System.out.println(message);
