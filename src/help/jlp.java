@@ -105,7 +105,7 @@ public class jlp implements Runnable
                 if (remote == true) in = getURLInputStream();
                 else in = getInputStream();
                 ServerThread.setOk(true);
-                System.out.println("On arrive à le lire !");
+                System.out.println("On arrive ï¿½ le lire !");
                 AudioDevice dev = getAudioDevice();
                 Player player = new Player(in, dev);
                 int indexSong = fFilename.lastIndexOf("\\");

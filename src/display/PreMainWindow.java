@@ -36,10 +36,12 @@ public class PreMainWindow extends MainLabel{
 			}
 		});
 		
-		add(new JLabel("Quel périphérique audio souhaitez vous utilisez ?"));
+		add(new JLabel("Quel pÃ©riphÃ©rique audio souhaitez vous utilisez ?"));
+		
+		System.out.println(AudioSystem.getMixerInfo()[0].getDescription());
 		
 		for (Mixer.Info info : AudioSystem.getMixerInfo()){
-			if (info.getDescription().contains("Playback")){
+			//if (info.getDescription().contains("Playback")){
 				JCheckBox buttonTemp = new JCheckBox(info.getName());
 				buttonTemp.setBackground(new Color(0,0,0,1));
 				buttonTemp.setBorderPainted(false);
@@ -58,7 +60,7 @@ public class PreMainWindow extends MainLabel{
 				});
 				tabCheck.add(buttonTemp);
 				add(buttonTemp);
-			}
+			//}
 		}
 		
 		add(apply);

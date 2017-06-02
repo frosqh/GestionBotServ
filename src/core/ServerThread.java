@@ -47,6 +47,7 @@ public class ServerThread extends Thread {
 			PrintStream out = new PrintStream(socket.getOutputStream());
 			while(!stop){
 				while((receivedData = in.readLine()) == null){
+					this.wait(500);
 				}
 				String message;
 				switch(receivedData){
@@ -155,7 +156,15 @@ public class ServerThread extends Thread {
 			System.out.println("Lancement du serveur");
 			while(!stop_serv){
 				Socket socketClient = socketServer.accept();
+				if (GestionServer.getClient().containsKey(socketClient.getInetAddress().toString())){
+					System.out.println("Thread " + GestionServer.getClient().get(socketClient.getInetAddress().toString()) + "has been stopped");
+					GestionServer.getClient().get(socketClient.getInetAddress().toString()).interrupt();
+					GestionServer.getClient().remove(socketClient.getInetAddress().toString());
+					
+				}
+				
 				ServerThread t = new ServerThread(socketClient, mapSong2, path3);
+				GestionServer.getClient().put(socketClient.getInetAddress().toString(), t);
 				t.start();
 			}
 			socketServer.close();
@@ -223,7 +232,7 @@ public class ServerThread extends Thread {
 			isPlaying = true;
 		}
 		else{
-			System.out.println("Chanson tirée au hasard :D");
+			System.out.println("Chanson tirï¿½e au hasard :D");
 			int totalPondere = 0;
 			ArrayList<String> aTraiter = null;
 			Object[] tab = mapSong.values().toArray();
@@ -268,7 +277,7 @@ public class ServerThread extends Thread {
 			return("Musique en cours : " + t.getSong().substring(indexSong+1,t.getSong().lastIndexOf(".")).replace("_", " "));
 		}
 		else{
-			return("Aucune musique n'est jouée !");
+			return("Aucune musique n'est jouï¿½e !");
 		}
 	}
 	

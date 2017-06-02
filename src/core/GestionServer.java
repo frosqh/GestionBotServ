@@ -20,7 +20,16 @@ public class GestionServer {
 	private static MainWindow window;
 	private static String artistList;
 	private static Ts3Query api;
+	private static HashMap<String, Thread> client = new HashMap<String, Thread>();
 	
+	public static HashMap<String, Thread> getClient() {
+		return client;
+	}
+
+	public static void setClient(HashMap<String, Thread> client) {
+		GestionServer.client = client;
+	}
+
 	public static void main(String[] arg0) throws IOException {
 		Thread t = new Thread(new Web());
 		t.start();
@@ -32,7 +41,7 @@ public class GestionServer {
 	private static void init() {
 		System.setProperty("file.encoding","UTF-32");
 		path = "C:\\Users\\Admin\\Music\\Musique\\";
-		//path = "/home/projecteur/Musique/Divers/Divers";
+		//path = "/home/projecteur/Musique/Nightcore/other/";
 		DiskFileExplorer d = new DiskFileExplorer(path ,false);
 		String stringFile = d.list().replaceAll("_", " ");
 		ServerThread.setStringFile(stringFile);
