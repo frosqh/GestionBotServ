@@ -109,7 +109,8 @@ public class jlp implements Runnable
                 AudioDevice dev = getAudioDevice();
                 Player player = new Player(in, dev);
                 int indexSong = fFilename.lastIndexOf("\\");
-                GestionServer.getApi().sendSelectSong(fFilename.substring(indexSong+1,fFilename.lastIndexOf(".")).replace("_", " "));
+                System.out.println(fFilename.lastIndexOf("."));
+                //GestionServer.getApi().sendSelectSong(fFilename.substring(indexSong+1,fFilename.lastIndexOf(".")).replace("_", " "));
                 player.play();
             }
             catch (Exception ex)

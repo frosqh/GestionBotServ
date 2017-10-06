@@ -40,8 +40,7 @@ public class GestionServer {
 	
 	private static void init() {
 		System.setProperty("file.encoding","UTF-32");
-		path = "C:\\Users\\Admin\\Music\\Musique\\";
-		//path = "/home/projecteur/Musique/Nightcore/other/";
+		path = "C:\\Users\\Frosqh\\Music\\Musique\\";
 		DiskFileExplorer d = new DiskFileExplorer(path ,false);
 		String stringFile = d.list().replaceAll("_", " ");
 		ServerThread.setStringFile(stringFile);
@@ -51,7 +50,7 @@ public class GestionServer {
 		artistList = artistList.substring(1,  artistList.length()-2);
 		
 		//System.out.println(isIn("4 Walls"));
-		Ts3Query.main(null);
+		//Ts3Query.main(null);
 	}
 
 	public static MainWindow getWindow() {

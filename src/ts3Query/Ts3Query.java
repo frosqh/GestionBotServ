@@ -51,10 +51,10 @@ public class Ts3Query {
 		
 		api = query.getApi();
 		GestionServer.setApi(this);
-		api.login("paikea2", "m88wFuk1");
+		api.login("paikea2", "YfIZ2XYc");
 		api.selectVirtualServerById(1);
 		api.setNickname("Paï");
-		moveTo(api.getClientByNameExact("frosqh",true));
+		moveTo(api.getClientByNameExact("Frosqh",true));
 		api.sendChannelMessage("Paikea is online ! *-*");
 		clientId = api.whoAmI().getId();
 		api.registerEvent(TS3EventType.CHANNEL);
