@@ -122,27 +122,6 @@ public class ServerThread extends Thread {
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public static boolean isPlaying() {
 		return isPlaying;
 	}
@@ -174,30 +153,7 @@ public class ServerThread extends Thread {
 			System.exit(0);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static void setOk(boolean b) {
 		ok = b;
 	}

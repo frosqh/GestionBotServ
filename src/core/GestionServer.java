@@ -46,7 +46,6 @@ public class GestionServer {
 		ServerThread.setStringFile(stringFile);
 		mapSong = ListHashMap.ListToHash(ListHashMap.recupList(stringFile));
 		artistList = mapSong.keySet().toString();
-		//System.out.println(artistList);
 		artistList = artistList.substring(1,  artistList.length()-2);
 		
 		//System.out.println(isIn("4 Walls"));
