@@ -74,6 +74,7 @@ public class ServerThread extends Thread {
     	  					if (!messageError.equals("PasLaChanson")){
         	  					setPlaying(true);
         	  					out.println("Playing");
+
     	  					}
     	  					else{
     	  						out.println("PasLaChanson");

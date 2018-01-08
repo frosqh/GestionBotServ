@@ -10,6 +10,7 @@ import com.github.theholywaffle.teamspeak3.TS3Api;
 
 import display.MainWindow;
 import help.DiskFileExplorer;
+import sun.rmi.runtime.NewThreadAction;
 import ts3Query.Ts3Query;
 import webServer.Web;
 
@@ -35,7 +36,8 @@ public class GestionServer {
 		t.start();
 		window = new MainWindow();
 		init();
-		ServerThread.main(mapSong, path);
+		//ServerThread.main(mapSong, path);
+		newThread.main(mapSong,path);
 	}
 	
 	private static void init() {
@@ -43,7 +45,7 @@ public class GestionServer {
 		path = "C:\\Users\\Frosqh\\Music\\Musique\\";
 		DiskFileExplorer d = new DiskFileExplorer(path ,false);
 		String stringFile = d.list().replaceAll("_", " ");
-		ServerThread.setStringFile(stringFile);
+		newThread.setStringFile(stringFile);
 		mapSong = ListHashMap.ListToHash(ListHashMap.recupList(stringFile));
 		artistList = mapSong.keySet().toString();
 		artistList = artistList.substring(1,  artistList.length()-2);

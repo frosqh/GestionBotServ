@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import core.ServerThread;
+import core.newThread;
 
 @SuppressWarnings("serial")
 public class AdminPanel extends MainLabel implements ActionListener{
@@ -73,31 +73,31 @@ public class AdminPanel extends MainLabel implements ActionListener{
 
 
 	public void update() {
-		encours.setText(ServerThread.whichPlaying());
-		listeAtt.setText(ServerThread.whichWaiting());
+		encours.setText(newThread.whichPlaying());
+		listeAtt.setText(newThread.whichWaiting());
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==pausePlay){
-			if (ServerThread.isPlaying()){
-				ServerThread.pause();
+			if (newThread.isPlaying()){
+				newThread.pause();
 			}
 			else{
-				ServerThread.lireNext();
-				ServerThread.setPlaying(true);
+				newThread.lireNext();
+				newThread.setPlaying(true);
 			}
 		}
 		else{
 			if (e.getSource()==next){
-				if (ServerThread.isPlaying()){
-					ServerThread.lireNext();
+				if (newThread.isPlaying()){
+					newThread.lireNext();
 				}
 			}
 			else{
 				if (e.getSource()==stop){
-					ServerThread.stopIt();
+					newThread.stopIt();
 				}
 			}
 		}

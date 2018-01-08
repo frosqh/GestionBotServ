@@ -3,7 +3,7 @@ package help;
 import java.io.FileNotFoundException;
 
 import core.GestionServer;
-import core.ServerThread;
+import core.newThread;
 import javazoom.jl.decoder.JavaLayerException;
 
 @SuppressWarnings("unused")
@@ -21,19 +21,19 @@ public class Lire extends Thread{
 	public void run(){
 		this.mp=new jlp();
 	    mp.init(song);
-	    ServerThread.setPlaying(true);
+	    newThread.setPlaying(true);
 		try {
 			mp.play();
-			ServerThread.setPlaying(false);
-			ServerThread.lireNext();
+			newThread.setPlaying(false);
+			newThread.lireNext();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			ServerThread.setMessageError("PasLaChanson");
-			ServerThread.setOk(true);
-			ServerThread.setPlaying(false);
+			newThread.setMessageError("PasLaChanson");
+			newThread.setOk(true);
+			newThread.setPlaying(false);
 			e.printStackTrace();
 		} catch (Exception e) {
-			ServerThread.setPlaying(false);
+			newThread.setPlaying(false);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

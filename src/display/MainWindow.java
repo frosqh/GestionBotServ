@@ -21,7 +21,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import core.ServerThread;
+import core.newThread;
+import core.newThread;
 import state.PreMain;
 import state.State;
 
@@ -76,7 +77,7 @@ public class MainWindow extends JFrame{
 		tray = SystemTray.getSystemTray();
 		
 		// Create a pop-up menu components
-		aboutItem = new MenuItem(ServerThread.whichPlaying());
+		aboutItem = new MenuItem(newThread.whichPlaying());
         MenuItem pausePlayItem = new MenuItem("Pause/Play");
         MenuItem nextItem = new MenuItem("Next");
         MenuItem exitItem = new MenuItem("Exit");
@@ -104,14 +105,13 @@ public class MainWindow extends JFrame{
         
         pausePlayItem.addActionListener(new ActionListener(){
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (ServerThread.isPlaying()){
-					ServerThread.pause();
+				if (newThread.isPlaying()){
+					newThread.pause();
 				}
 				else{
-					ServerThread.lireNext();
-					ServerThread.setPlaying(true);
+					newThread.lireNext();
+					newThread.setPlaying(true);
 				}
 			}
         	
@@ -121,8 +121,8 @@ public class MainWindow extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (ServerThread.isPlaying()){
-					ServerThread.lireNext();
+				if (newThread.isPlaying()){
+					newThread.lireNext();
 				}
 				
 			}
@@ -198,7 +198,7 @@ public class MainWindow extends JFrame{
 	}
 
 	public void update() {
-			aboutItem.setLabel(ServerThread.whichPlaying());
+			aboutItem.setLabel(newThread.whichPlaying());
 	}
 	
 	public void displayMessage(String msg){

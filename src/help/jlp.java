@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import core.GestionServer;
-import core.ServerThread;
+import core.newThread;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
@@ -104,7 +104,7 @@ public class jlp implements Runnable
                 InputStream in = null;
                 if (remote == true) in = getURLInputStream();
                 else in = getInputStream();
-                ServerThread.setOk(true);
+                newThread.setOk(true);
                 System.out.println("On arrive � le lire !");
                 AudioDevice dev = getAudioDevice();
                 Player player = new Player(in, dev);
