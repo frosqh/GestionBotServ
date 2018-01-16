@@ -109,6 +109,9 @@ public class newThread extends Thread{
                             out.println(listAtt);
                             break;
                         }
+                        if (receivedData.startsWith("dlYoutube")){
+                            String url = receivedData.substring("dlYoutube".length());
+                        }
                 }
             }
         } catch (IOException e) {

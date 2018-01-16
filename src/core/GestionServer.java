@@ -22,6 +22,7 @@ public class GestionServer {
 	private static String artistList;
 	private static Ts3Query api;
 	private static HashMap<String, Thread> client = new HashMap<String, Thread>();
+	private static boolean downloading;
 	
 	public static HashMap<String, Thread> getClient() {
 		return client;
@@ -112,4 +113,8 @@ public class GestionServer {
 	public static String getArtistSong(String artist) {
 		return mapSong.get(artist).toString();
 	}
+
+    public static void setDownloading(boolean downloading) {
+        GestionServer.downloading = downloading;
+    }
 }
